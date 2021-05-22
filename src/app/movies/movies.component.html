@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <form [formGroup]="searchForm" class="form" (ngSubmit)="getMoviesFromService()">
+    <input formControlName="query" type="text" class="form-control mb-3 w-25" placeholder="Title">
+    <!-- <small class="alert alert-danger" *ngIf="searchForm.get('query').errors.required
+    && (searchForm.get('query').touched || searchForm.get('query').dirty)">
+    Part of the title required...
+  </small> -->
+    <input formControlName="year" type="number" class="form-control mb-3 w-25" placeholder="Year" min=1990>
+    <!-- <small *ngIf="searchForm.get('year').errors.year
+  && (searchForm.get('year').touched || searchForm.get('year').dirty)">
+    Email must follow a specific format ....@.....gr
+  </small> -->
+    <br><br><br>
+    <button [disabled] class="btn btn-primary">Search</button>
+  </form>
+</div>
+
+<button></button>
+<ul *ngFor="let movie of data.results">
+<li>
+  <h6>{{movie.title}}</h6>
+  <button (click)="buttonClicked()">Show Details</button>
+  <div *ngIf="showModal"></div>
+</li>
+</ul>
+
