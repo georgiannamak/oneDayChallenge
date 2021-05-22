@@ -1,26 +1,40 @@
 <div class="container-fluid">
   <form [formGroup]="searchForm" class="form" (ngSubmit)="getMoviesFromService()">
     <input formControlName="query" type="text" class="form-control mb-3 w-25" placeholder="Title">
-    <!-- <small class="alert alert-danger" *ngIf="searchForm.get('query').errors.required
-    && (searchForm.get('query').touched || searchForm.get('query').dirty)">
+    <small class="alert alert-danger" *ngIf="searchForm.get('query')?.errors?.required
+    && (searchForm.get('query')?.touched || searchForm.get('query')?.dirty)">
     Part of the title required...
-  </small> -->
+  </small>
     <input formControlName="year" type="number" class="form-control mb-3 w-25" placeholder="Year" min=1990>
-    <!-- <small *ngIf="searchForm.get('year').errors.year
-  && (searchForm.get('year').touched || searchForm.get('year').dirty)">
-    Email must follow a specific format ....@.....gr
-  </small> -->
+    <small *ngIf="searchForm.get('year')?.errors?.year
+  && (searchForm.get('year')?.touched || searchForm.get('year')?.dirty)">
+    Year must be between 1990 and 2025
+  </small>
     <br><br><br>
-    <button [disabled] class="btn btn-primary">Search</button>
+    <button [disabled]="searchForm?.invalid" class="btn btn-primary">Search</button>
   </form>
 </div>
 
-<button></button>
 <ul *ngFor="let movie of data.results">
 <li>
   <h6>{{movie.title}}</h6>
-  <button (click)="buttonClicked()">Show Details</button>
-  <div *ngIf="showModal"></div>
+  <button class="btn-secondary btn" (click)="showdetails()" >Show Details</button>
+  <div *ngIf="showDetail">
+    adult: {{movie.adult}}<br>
+    <img src="{{movie.backdrop_path}}" alt="backdrop_path"><br>
+    genre_ids: {{movie.genre_ids}}<br>
+    id: {{movie.id}}<br>
+    original_language: {{movie.original_language}}<br>
+    original_title:{{movie.original_title}}<br>
+    overview:{{movie.overview}}<br>
+    popularity:{{movie.popularit}}<br>
+    <img src="{{movie.poster_path}}" alt="poster_path"><br>
+    release_date: {{movie.release_date}}<br>
+    title: {{movie.title}}<br>
+    video: {{movie.video}}<br>
+    vote_average: {{movie.vote_average}}<br>
+    vote_count: {{movie.vote_count}}<br>
+  </div>
 </li>
 </ul>
 

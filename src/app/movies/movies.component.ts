@@ -1,5 +1,5 @@
 import { MoviesService } from './../services/movies.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Movie } from './movie';
 
@@ -12,11 +12,13 @@ export class MoviesComponent implements OnInit {
 
   searchForm: FormGroup
   data:any;
-  showModal:boolean
+  showDetail:boolean
+  @Input() selectedMovie:any
 
   constructor(private dataService:MoviesService,private builder:FormBuilder) {
       this.searchForm=new FormGroup({});
-      this.showModal=false
+      this.showDetail=false
+
   }
 
   ngOnInit(): void {
@@ -29,14 +31,14 @@ export class MoviesComponent implements OnInit {
 
   getMoviesFromService()
   {
-      this.dataService.getMovies().subscribe(
+      this.dataService.getMovies(this.searchForm.controls.query.value,this.searchForm.controls.query.value).subscribe(
         (resp:any)=>{this.data=resp}
       )
   }
 
-  buttonClicked()
+  showdetails()
   {
-      this.showModal=true;
+      this.showDetail=true
   }
 
 }
